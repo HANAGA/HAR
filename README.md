@@ -12,9 +12,29 @@ This human activity recognition research has traditionally focused on discrimina
 ## Data Loading and Cleaning
 ```R
 
-> path="D:/CoursEra2014/Data Science/Course08 Machine Learning/Week5 Project 1"
-> setwd(path)
-> pml.test <- read.csv("pml-testing.csv",header=T)
-> pml.train <- read.csv("pml-training.csv",header=T)
+path="D:/CoursEra2014/Data Science/Course08 Machine Learning/Week5 Project 1"
+setwd(path)
+pml.test <- read.csv("pml-testing.csv",header=T)
+pml.train <- read.csv("pml-training.csv",header=T)
+
+#removing unnecessary 1st column
+pml.train <- pml.train[,-1]
+
+# function to verify whether a column contains NA value or not
+notNAcolumn <- function(x){ !any(is.na(x)) }
+
+
+# applying above function on every column of train data and to get list of columns with status
+cols.status <- apply(pml.train,2,notNAcolumn)
+# extracting all columns which do not contain NA values
+
+dim(pml.train)
+pml.train <- pml.train[, cols.status]
+
+dim(pml.train)
+
+
+
+
 
 ```
